@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Register for the Wall</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+			crossorigin="anonymous"
+		/>
+	</head>
+	<body class="bg-dark">
+		<div class="container">
+			<div
+				style="height: 100vh"
+				class="d-flex flex-column justify-content-center align-items-center"
+			>
+				<form
+					action="/process_register"
+					method="post"
+					novalidate
+					class="bg-light p-5 mb-3 rounded"
+					style="width: 650px"
+				>
+					{% csrf_token %}
+					<div class="mb-3">
+						<h2>Register</h2>
+					</div>
+					<div class="row">
+						{% if messages %}
+						<ul class="messages">
+							{% for message in messages %}
+							<li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+								{{ message }}
+							</li>
+							{% endfor %}
+						</ul>
+						{% endif %}
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="mb-3">
+								<label for="first_name_input" class="form-label"
+									>First Name</label
+								>
+								<input
+									type="text"
+									class="form-control"
+									name="first_name_input"
+									id="first_name_input"
+								/>
+							</div>
+						</div>
+						<div class="col">
+							<div class="mb-3">
+								<label for="last_name_input" class="form-label"
+									>Last Name</label
+								>
+								<input
+									type="text"
+									class="form-control"
+									name="last_name_input"
+									id="last_name_input"
+								/>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="mb-3">
+							<label for="email_input" class="form-label">Email Address</label>
+							<input
+								type="email"
+								class="form-control"
+								name="email_input"
+								id="email_input"
+							/>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col">
+							<div class="mb-3">
+								<label for="password_input" class="form-label">Password</label>
+								<input
+									type="password"
+									class="form-control"
+									name="password_input"
+									id="password_input"
+								/>
+							</div>
+						</div>
+						<div class="col">
+							<div class="mb-3">
+								<label for="confirm_password_input" class="form-label"
+									>Confirm Password</label
+								>
+								<input
+									type="password"
+									class="form-control"
+									name="confirm_password_input"
+									id="confirm_password_input"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-dark">Submit</button>
+				</form>
+				<a class="btn btn-link text-light" href="/login">Login instead</a>
+			</div>
+		</div>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Dashboard Page</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container p-5">
+			<!-- START NAVBAR -->
+			<div class="header-bar d-flex justify-content-between mb-4">
+				<div class="float-left">
+					<h2>Hello {{logged_user.first_name}}!</h2>
+				</div>
+				<div class="">
+					<a href="/process_logout" class="mx-4">Logout</a>
+					<a href="/trips/new" class="btn btn-dark">Create a new trip!</a>
+				</div>
+			</div>
+			<!-- END NAVBAR -->
+			<!-- START TABLES -->
+			<div class="container mb-5" style="max-width: 960px">
+				<h4>Your trips:</h4>
+
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">Destination</th>
+							<th scope="col">Start Date</th>
+							<th scope="col">End Date</th>
+							<th scope="col">Plan</th>
+							<th scope="col">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for trip in logged_user.joined_trips.all %}
+						<tr>
+							<td><a href="/trips/{{ trip.id }}">{{trip.destination}}</a></td>
+							<td class="col-2">{{trip.start_date}}</td>
+							<td class="col-2">{{trip.end_date}}</td>
+							<td class="col-4">{{trip.plan}}</td>
+							<td class="col-2">
+								{% if trip.creator == logged_user %}
+								<a href="/trips/{{ trip.id }}/remove">Remove</a>
+								<a href="/trips/{{ trip.id }}/edit">Edit</a>
+								{% else %}
+								<a href="/trips/{{ trip.id }}/cancel">Cancel</a>
+								{% endif %}
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+			<div class="container" style="max-width: 960px">
+				<h4>Other peoples trips:</h4>
+
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">Destination</th>
+							<th scope="col">Start Date</th>
+							<th scope="col">End Date</th>
+							<th scope="col">Plan</th>
+							<th scope="col">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for trip in not_users_trips %}
+						<tr>
+							<td><a href="/trips/{{ trip.id }}">{{trip.destination}}</a></td>
+							<td class="col-2">{{trip.start_date}}</td>
+							<td class="col-2">{{trip.end_date}}</td>
+							<td class="col-4">{{trip.plan}}</td>
+							<td class="col-2">
+								<a href="/trips/{{ trip.id }}/join">Join</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+			<!-- END TABLES -->
+		</div>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+			crossorigin="anonymous"
+		></script>
+		<script src="app.js"></script>
+	</body>
+</html>

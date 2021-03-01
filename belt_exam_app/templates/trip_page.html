@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>View trip</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container p-5">
+			<!-- START NAVBAR -->
+			<div class="header-bar d-flex justify-content-between mb-4">
+				<div class="float-left">
+					<h2>Hello {{logged_user.first_name}}! Read about this trip!</h2>
+				</div>
+				<div class="">
+					<a href="/dashboard" class="mx-4">Dashboard</a>
+					<a href="/process_logout" class="mx-4">Logout</a>
+				</div>
+			</div>
+			<!-- END NAVBAR -->
+			<h2>{{this_trip.destination}}</h2>
+			<div class="card p-3 mx-auto mb-5" style='width: 650px;'>
+				<p>Start Date: {{this_trip.start_date}}</p>
+				<p>End Date: {{this_trip.end_date}}</p>
+				<p>Created On: {{this_trip.created_at}}</p>
+				<p>Last Updated: {{this_trip.updated_at}}</p>
+				<p>Plan: {{this_trip.plan}}</p>
+				<p>Created By: {{this_trip.creator.first_name}} {{this_trip.creator.last_name}}</p>
+			</div>
+			<div class="card p-3 mx-auto" style='width: 650px;'>
+				<h3 class="mb-4">People who've joined this trip:</h3>
+				{% for person in this_trip.trip_members.all %}
+				{% if this_trip not in person.created_trips.all %}
+				<div class="row"><p class=" ms-3">{{person.first_name}} {{person.last_name}}</p></div>
+				{% endif %}
+				{% endfor %}
+			</div>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+			crossorigin="anonymous"
+		></script>
+		<script src="app.js"></script>
+	</body>
+</html>

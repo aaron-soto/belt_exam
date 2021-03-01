@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>New Trip</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container p-5">
+			<!-- START NAVBAR -->
+			<div class="header-bar d-flex justify-content-between mb-4">
+				<div class="float-left">
+					<h2>Hello {{logged_user.first_name}}! Create a trip!</h2>
+				</div>
+				<div class="">
+					<a href="/process_logout" class="mx-4">Logout</a>
+				</div>
+			</div>
+			<!-- END NAVBAR -->
+
+			<!-- START ERRORS -->
+			{% if messages %}
+			<ul class="messages">
+				{% for message in messages %}
+				<li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+					{{ message }}
+				</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			<!-- END ERRORS -->
+
+			<!-- START FORMS -->
+			<form
+				action="/process_trip"
+				method="POST"
+				class="bg-light p-4 mx-auto mt-5"
+				style="width: 600px"
+			>
+				{% csrf_token %}
+				<div class="mb-3 row">
+					<div class="col">
+						<label for="destination_input" class="form-label"
+							>Destination</label
+						>
+					</div>
+					<div class="col-9">
+						<input
+							type="text"
+							class="form-control"
+							id="destination_input"
+							name="destination_input"
+							aria-describedby="emailHelp"
+						/>
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<div class="col">
+						<label for="trip_start_input" class="form-label">Start Date</label>
+					</div>
+					<div class="col-9">
+						<input
+							type="date"
+							class="form-control"
+							name="trip_start_input"
+							data-date-format="DD/MM/YYYY"
+							id="trip_start_input"
+							aria-describedby="emailHelp"
+						/>
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<div class="col">
+						<label for="trip_end_input" class="form-label">End Date</label>
+					</div>
+					<div class="col-9">
+						<input
+							type="date"
+							class="form-control"
+							name="trip_end_input"
+							data-date-format="DD/MM/YYYY"
+							id="trip_end_input"
+							aria-describedby="emailHelp"
+						/>
+					</div>
+				</div>
+
+				<div class="mb-3 row">
+					<div class="col">
+						<label for="trip_plan_input" class="form-label">Plan</label>
+					</div>
+					<div class="col-9">
+						<textarea class="form-control" name="trip_plan_input"></textarea>
+					</div>
+				</div>
+
+				<div class="d-flex justify-content-end">
+					<a href="/dashboard" class="btn btn-dark mx-4">Cancel</a>
+					<button type="submit" class="btn btn-dark">Submit</button>
+				</div>
+			</form>
+			<!-- END FORMS -->
+		</div>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+			crossorigin="anonymous"
+		></script>
+		<script src="app.js"></script>
+	</body>
+</html>
